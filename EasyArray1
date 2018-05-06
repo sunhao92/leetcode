@@ -1,7 +1,14 @@
 /**
  *https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/1/array/21/
+ *26. 删除排序数组中的重复项
+ *给定一个排序数组，你需要在原地删除重复出现的元素，使得每个元素只出现一次，返回移除后数组的新长度。
+ *不要使用额外的数组空间，你必须在原地修改输入数组并在使用 O(1) 额外空间的条件下完成。
+ *示例 1:
+ *给定数组 nums = [1,1,2], 
+ *函数应该返回新的长度 2, 并且原数组 nums 的前两个元素被修改为 1, 2。 
+ *你不需要考虑数组中超出新长度后面的元素。
  */
-class Solution {
+class MySolution {
 public:
     int removeDuplicates(vector<int>& nums) {
         if (nums.size() < 2) {
@@ -21,8 +28,34 @@ public:
                 }
                 nums[i] = nums[nextIndex];
                 current = nums[i];
+            } else {
+                current = nums[i];
             }
         }
         return i;
+    }
+};
+
+class Solution
+{
+// 整体思路用的是清华MOOC上邓俊辉老师的数据结构与算法的“有序向量唯一化的高效版”，儿没有用到包括remove()、erase()等在内的其他任何的vector数据结构接口
+// 对重复元素进行覆盖，而不是删除
+// 在letcode上当然要考虑处理退化的空vector的情况
+public:
+    int removeDuplicates(vector<int>& nums) 
+    {
+        // 先处理退化的空vector
+        if (nums.empty())
+            return 0;
+        
+        int i =0,  j = 0;
+        while(++j <nums.size())
+        {
+            if (nums[i] != nums[j])
+                nums[++i] = nums[j];
+        }
+        
+        return ++i;
+        
     }
 };
