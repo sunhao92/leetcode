@@ -1,0 +1,21 @@
+/**
+ *https://leetcode-cn.com/explore/interview/card/top-interview-questions-easy/1/array/21/
+ */
+class Solution {
+public:
+    int removeDuplicates(vector<int>& nums) {
+        int current = nums[0], nextIndex = 2;
+        for (int i = 1; i < nums.size(); i++) {
+            if (nums[i] == current) {
+                while (nums[nextIndex] <= current) {
+                    if (nextIndex >= nums.size() - 1) {
+                        return i;
+                    }
+                    ++nextIndex;
+                }
+                nums[i] = nums[nextIndex];
+                current = nums[i];
+            }
+        }
+    }
+};
